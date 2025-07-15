@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>undefineds Numerologie Report</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Cormorant Garamond', serif;
+            background: radial-gradient(ellipse at center, #1a0033 0%, #0d0021 50%, #000011 100%);
+            min-height: 100vh;
+            color: #e8d5ff;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: 
+                radial-gradient(2px 2px at 20px 30px, rgba(255,255,255,0.3), transparent),
+                radial-gradient(2px 2px at 40px 70px, rgba(138,43,226,0.2), transparent),
+                radial-gradient(1px 1px at 90px 40px, rgba(255,255,255,0.4), transparent),
+                radial-gradient(1px 1px at 130px 80px, rgba(138,43,226,0.3), transparent),
+                radial-gradient(2px 2px at 160px 30px, rgba(255,255,255,0.2), transparent);
+            background-repeat: repeat;
+            background-size: 200px 200px;
+            animation: stars 20s linear infinite;
+            pointer-events: none;
+            opacity: 0.6;
+        }
+        
+        @keyframes stars { from { transform: translateY(0px); } to { transform: translateY(-200px); } }
+        @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        @keyframes pulse { 0%, 100% { transform: scale(1); opacity: 0.8; } 50% { transform: scale(1.1); opacity: 1; } }
+        @keyframes levitateGlow { 0%, 100% { transform: translateY(0px); filter: brightness(1); } 50% { transform: translateY(-8px); filter: brightness(1.3); } }
+        @keyframes etherealPulse { 0%, 100% { transform: scale(1); opacity: 0.3; } 50% { transform: scale(1.2); opacity: 0.6; } }
+        @keyframes starTwinkle { 0%, 100% { opacity: 0.6; transform: translateX(-50%) scale(1) rotate(0deg); } 50% { opacity: 1; transform: translateX(-50%) scale(1.2) rotate(180deg); } }
+        @keyframes mysticalSweep { 0% { left: -100%; } 50% { left: 100%; } 100% { left: -100%; } }
+        
+        .container { max-width: 800px; margin: 0 auto; padding: 40px 20px; position: relative; z-index: 1; }
+        .header { text-align: center; margin-bottom: 60px; position: relative; }
+        .cosmic-symbol { font-size: 48px; margin-bottom: 20px; background: linear-gradient(45deg, #9932cc, #da70d6, #ba55d3); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; animation: pulse 3s ease-in-out infinite; }
+        .name { font-family: 'Cinzel', serif; font-size: 40px; font-weight: 700; background: linear-gradient(135deg, #da70d6, #9932cc, #ba55d3, #dda0dd); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 10px; text-shadow: 0 0 30px rgba(153,50,204,0.5); letter-spacing: 2px; }
+        .subtitle { font-size: 18px; color: #c9a9dd; font-weight: 400; letter-spacing: 3px; text-transform: uppercase; font-style: italic; }
+        
+        .chart-section { display: flex; justify-content: center; margin: 80px 0; position: relative; }
+        .chart-container { position: relative; }
+        .outer-circle { position: absolute; top: -40px; left: -40px; width: 380px; height: 380px; border: 1px solid rgba(138,43,226,0.3); border-radius: 50%; animation: rotate 30s linear infinite; }
+        .chart { position: relative; width: 300px; height: 300px; background: radial-gradient(circle, rgba(138,43,226,0.1) 0%, rgba(25,0,51,0.8) 70%); border: 3px solid rgba(218,112,214,0.6); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 50px rgba(138,43,226,0.4), inset 0 0 50px rgba(138,43,226,0.1), 0 0 100px rgba(138,43,226,0.2); backdrop-filter: blur(10px); position: relative; z-index: 2; }
+        .chart::before { content: ''; position: absolute; top: 50%; left: 50%; width: 200px; height: 200px; transform: translate(-50%, -50%); background: radial-gradient(circle, rgba(218,112,214,0.1) 0%, transparent 70%); border-radius: 50%; animation: pulse 4s ease-in-out infinite; }
+        .hauptzahl { font-family: 'Cinzel', serif; font-size: 90px; font-weight: 700; background: linear-gradient(135deg, #ffffff, #da70d6, #9932cc, #ba55d3); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; text-shadow: 0 0 60px rgba(218,112,214,0.8), 0 0 120px rgba(186,85,211,0.6), 0 0 180px rgba(153,50,204,0.4); position: relative; z-index: 3; animation: levitateGlow 6s ease-in-out infinite; }
+        .hauptzahl::before { content: ''; position: absolute; top: -20px; left: -20px; right: -20px; bottom: -20px; background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%); border-radius: 50%; animation: etherealPulse 4s ease-in-out infinite; z-index: -1; }
+        .hauptzahl::after { content: '✦'; position: absolute; top: -40px; left: 50%; transform: translateX(-50%); font-size: 24px; color: rgba(255,255,255,0.8); animation: starTwinkle 3s ease-in-out infinite; }
+        
+        .chart-element { position: absolute; display: flex; flex-direction: column; align-items: center; text-align: center; }
+        .number-circle { width: 60px; height: 60px; border-radius: 50%; background: radial-gradient(circle, rgba(138,43,226,0.3) 0%, rgba(25,0,51,0.9) 100%); border: 2px solid rgba(218,112,214,0.6); color: #da70d6; display: flex; align-items: center; justify-content: center; font-family: 'Cinzel', serif; font-weight: 600; font-size: 16px; margin-bottom: 15px; box-shadow: 0 0 30px rgba(138,43,226,0.5), inset 0 0 20px rgba(138,43,226,0.2); transition: all 0.4s ease; cursor: pointer; position: relative; }
+        .number-circle::before { content: ''; position: absolute; top: -5px; left: -5px; right: -5px; bottom: -5px; border: 1px solid rgba(218,112,214,0.3); border-radius: 50%; animation: rotate 8s linear infinite; }
+        .number-circle:hover { transform: scale(1.2); box-shadow: 0 0 50px rgba(138,43,226,0.8), inset 0 0 30px rgba(138,43,226,0.4); }
+        .chart-label { font-size: 12px; font-weight: 500; color: #c9a9dd; text-transform: uppercase; letter-spacing: 1px; font-style: italic; }
+        
+        .element-top { top: -80px; left: 50%; transform: translateX(-50%); }
+        .element-top-right { top: -40px; right: -40px; }
+        .element-right { right: -80px; top: 50%; transform: translateY(-50%); }
+        .element-bottom { bottom: -80px; left: 50%; transform: translateX(-50%); }
+        .element-left { left: -80px; top: 50%; transform: translateY(-50%); }
+        
+        .content-section { margin: 60px 0; }
+        .mystical-card { background: linear-gradient(135deg, rgba(138,43,226,0.1), rgba(25,0,51,0.3)); border: 1px solid rgba(218,112,214,0.4); border-radius: 20px; padding: 30px; margin: 30px 0; backdrop-filter: blur(10px); box-shadow: 0 0 30px rgba(138,43,226,0.2); position: relative; overflow: hidden; }
+        .mystical-card::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(218,112,214,0.1), transparent); animation: mysticalSweep 4s ease-in-out infinite; }
+        .card-title { font-family: 'Cinzel', serif; font-size: 24px; font-weight: 600; color: #da70d6; margin-bottom: 15px; text-align: center; }
+        .card-content { font-size: 18px; line-height: 1.8; color: #e8d5ff; text-align: center; position: relative; z-index: 2; }
+        
+        .cta-section { background: linear-gradient(135deg, rgba(218,112,214,0.3), rgba(138,43,226,0.3)); border: 2px solid rgba(218,112,214,0.6); border-radius: 25px; padding: 40px; text-align: center; margin-top: 50px; position: relative; overflow: hidden; }
+        .cta-section::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: linear-gradient(45deg, transparent, rgba(218,112,214,0.1), transparent); animation: rotate 8s linear infinite; }
+        .cta-title { font-family: 'Cinzel', serif; font-size: 28px; font-weight: 700; margin-bottom: 15px; color: #da70d6; position: relative; z-index: 2; }
+        .cta-features { font-size: 16px; margin: 20px 0; position: relative; z-index: 2; }
+        .cta-button { background: linear-gradient(135deg, #9932cc, #da70d6); color: #1a0033; padding: 18px 40px; border: none; border-radius: 50px; font-size: 18px; font-weight: 600; cursor: pointer; transition: all 0.3s ease; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 0 30px rgba(138,43,226,0.5); position: relative; z-index: 2; }
+        .cta-button:hover { transform: translateY(-3px) scale(1.05); box-shadow: 0 0 50px rgba(138,43,226,0.8); }
+        
+        @media (max-width: 768px) { .chart { width: 250px; height: 250px; } .outer-circle { width: 320px; height: 320px; top: -35px; left: -35px; } .hauptzahl { font-size: 70px; } .number-circle { width: 50px; height: 50px; font-size: 14px; } .name { font-size: 28px; } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="cosmic-symbol">🌟</div>
+            <div class="name">undefined</div>
+            <div class="subtitle">Dein Mystisches Numerologie-Chart</div>
+        </div>
+        
+        <div class="chart-section">
+            <div class="chart-container">
+                <div class="outer-circle"></div>
+                <div class="chart">
+                    <div class="hauptzahl">7</div>
+                    
+                    <div class="chart-element element-top">
+                        <div class="number-circle">11</div>
+                        <div class="chart-label">Geburtsmonat</div>
+                    </div>
+                    
+                    <div class="chart-element element-top-right">
+                        <div class="number-circle">3</div>
+                        <div class="chart-label">Jahr 2025</div>
+                    </div>
+                    
+                    <div class="chart-element element-right">
+                        <div class="number-circle">5</div>
+                        <div class="chart-label">Namenszahl</div>
+                    </div>
+                    
+                    <div class="chart-element element-bottom">
+                        <div class="number-circle">26</div>
+                        <div class="chart-label">Geburtstag</div>
+                    </div>
+                    
+                    <div class="chart-element element-left">
+                        <div class="number-circle">8</div>
+                        <div class="chart-label">Geburtsjahr</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="content-section">
+            <div class="mystical-card">
+                <div class="card-title">🎯 Deine Lebenszahl: 7</div>
+                <div class="card-content">Du bist eine hochsensible und tiefsinnige Seele, die nach verborgenen Wahrheiten sucht und eine natürliche Begabung für spirituelle und wissenschaftliche Erkenntnisse besitzt. Deine analytischen Fähigkeiten und dein scharfer Verstand machen dich zu einem geborenen Forscher und Philosophen, während deine intuitive Kraft dir Zugang zu höheren Bewusstseinsebenen ermöglicht. In der Stille findest du deine größte Kraft, und wenn du lernst, deine Bedürfnisse nach Rückzug und Kontemplation zu respektieren, während du dich gleichzeitig behutsam der Welt öffnest, wirst du dein volles spirituelles und intellektuelles Potential entfalten können.</div>
+            </div>
+            
+            <div class="mystical-card">
+                <div class="card-title">🔮 Was dein Chart noch verbirgt...</div>
+                <div class="card-content">
+                    <ul style="text-align:left;list-style:none;margin:20px 0">
+                        <li style="margin:10px 0">• Warum ist deine Lebenszahl eine 7? Das ist kein Zufall...</li>
+                        <li style="margin:10px 0">• Welche Partnerzahlen harmonieren perfekt mit dir?</li>
+                        <li style="margin:10px 0">• Wie nutzt du deine spirituelle Kraft optimal?</li>
+                        <li style="margin:10px 0">• Was bedeutet das Jahr 2025 konkret für dich?</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="cta-section">
+            <div class="cta-title">Bereit für die vollständige Deutung?</div>
+            <div class="cta-features">
+                ✓ Vollständige Chart-Analyse<br>
+                ✓ Meisterzahl-Bedeutung<br>
+                ✓ Partnerschafts-Kompatibilität<br>
+                ✓ Monatsprognose 2025
+            </div>
+            <button class="cta-button">Jetzt für nur 27€ freischalten</button>
+        </div>
+    </div>
+</body>
+</html>
